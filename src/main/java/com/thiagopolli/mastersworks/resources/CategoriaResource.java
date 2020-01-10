@@ -1,34 +1,39 @@
 package com.thiagopolli.mastersworks.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.thiagopolli.mastersworks.domain.Categoria;
+import com.thiagopolli.mastersworks.services.CategoriaServices;
 
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 	
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@Autowired
+	private CategoriaServices service;
 	
-	public List<Categoria> listar(){
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable Integer id){
 		
-		Categoria cat1 = new Categoria(1,"Imformática");
-		Categoria cat2 = new Categoria(2,"Escritório");
+		Categoria obj = service.findById(id);
 		
-		List<Categoria> listar = new ArrayList<>(); 
+		return ResponseEntity.ok().body(obj);
 		
-		listar.add(cat1);
-		listar.add(cat2);
-		
-		
-		return listar;
-		
+	}
+	
+	@RequestMapping
+	public ResponseEntity<List<Categoria>> findAll(){
+		List<Categoria> list = service.findall();
+		return ResponseEntity.ok().body(list);
 	}
 	
 	
