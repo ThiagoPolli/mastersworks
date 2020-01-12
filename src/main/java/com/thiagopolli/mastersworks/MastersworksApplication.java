@@ -13,6 +13,7 @@ import com.thiagopolli.mastersworks.domain.Cidade;
 import com.thiagopolli.mastersworks.domain.Cliente;
 import com.thiagopolli.mastersworks.domain.Endereco;
 import com.thiagopolli.mastersworks.domain.Estado;
+import com.thiagopolli.mastersworks.domain.ItemPedidos;
 import com.thiagopolli.mastersworks.domain.Pagamento;
 import com.thiagopolli.mastersworks.domain.PagamentoComBoleto;
 import com.thiagopolli.mastersworks.domain.PagamentoComcartao;
@@ -25,6 +26,7 @@ import com.thiagopolli.mastersworks.repositories.CidadeRepository;
 import com.thiagopolli.mastersworks.repositories.ClienteRepository;
 import com.thiagopolli.mastersworks.repositories.EnderecoRepository;
 import com.thiagopolli.mastersworks.repositories.EstadoRepository;
+import com.thiagopolli.mastersworks.repositories.ItemPedidoRepository;
 import com.thiagopolli.mastersworks.repositories.PagamentoRepository;
 import com.thiagopolli.mastersworks.repositories.PedidoRepository;
 import com.thiagopolli.mastersworks.repositories.ProdutoRepository;
@@ -56,6 +58,9 @@ public class MastersworksApplication implements CommandLineRunner {
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
 	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(MastersworksApplication.class, args);
 	}
@@ -65,7 +70,7 @@ public class MastersworksApplication implements CommandLineRunner {
 		
 		Categoria cat1 = new Categoria(null, "Informatica");
 		Categoria cat2 = new Categoria(null, "Escritorio");
-		Categoria cat3 = new Categoria(null, "Eletronicos");
+		
 		
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
@@ -73,13 +78,13 @@ public class MastersworksApplication implements CommandLineRunner {
 		
 		cat1.getProdutos().addAll(Arrays.asList(p1));
 		cat2.getProdutos().addAll(Arrays.asList(p2));
-		cat3.getProdutos().addAll(Arrays.asList(p3));
+		
 		
 		p1.getCategoras().addAll(Arrays.asList(cat1));
-		p2.getCategoras().addAll(Arrays.asList(cat2));
-		p3.getCategoras().addAll(Arrays.asList(cat3));
+		p2.getCategoras().addAll(Arrays.asList(cat2, cat1));
+		p3.getCategoras().addAll(Arrays.asList(cat1));
 		
-		categoriaRepository.saveAll(Arrays.asList( cat1,cat2,cat3));
+		categoriaRepository.saveAll(Arrays.asList( cat1,cat2));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		
 		
@@ -130,6 +135,18 @@ public class MastersworksApplication implements CommandLineRunner {
 		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
 		
 		
+		ItemPedidos ip1 = new ItemPedidos(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedidos ip2 =new ItemPedidos(ped1, p3, 0.00, 2, 80.00);
+		ItemPedidos ip3 = new ItemPedidos(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 		
 		
 	}
