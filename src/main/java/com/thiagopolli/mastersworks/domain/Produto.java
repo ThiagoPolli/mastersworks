@@ -35,6 +35,7 @@ public class Produto implements Serializable {
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	
 	public Produto(){
 		
 	}

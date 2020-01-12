@@ -1,6 +1,5 @@
 package com.thiagopolli.mastersworks.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +15,7 @@ public class CategoriaServices {
 	@Autowired
 	private CategoriaRepository repository;
 	
-	public List<Categoria> findall(){
-		return repository.findAll();
-		
-	}
+
 	public Categoria find(Integer id) {
 		Optional<Categoria> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
