@@ -1,5 +1,6 @@
 package com.thiagopolli.mastersworks;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,20 @@ import com.thiagopolli.mastersworks.domain.Cidade;
 import com.thiagopolli.mastersworks.domain.Cliente;
 import com.thiagopolli.mastersworks.domain.Endereco;
 import com.thiagopolli.mastersworks.domain.Estado;
+import com.thiagopolli.mastersworks.domain.Pagamento;
+import com.thiagopolli.mastersworks.domain.PagamentoComBoleto;
+import com.thiagopolli.mastersworks.domain.PagamentoComcartao;
+import com.thiagopolli.mastersworks.domain.Pedido;
 import com.thiagopolli.mastersworks.domain.Produto;
+import com.thiagopolli.mastersworks.domain.enums.EstadoPagamento;
 import com.thiagopolli.mastersworks.domain.enums.Tipocliente;
 import com.thiagopolli.mastersworks.repositories.CategoriaRepository;
 import com.thiagopolli.mastersworks.repositories.CidadeRepository;
 import com.thiagopolli.mastersworks.repositories.ClienteRepository;
 import com.thiagopolli.mastersworks.repositories.EnderecoRepository;
 import com.thiagopolli.mastersworks.repositories.EstadoRepository;
+import com.thiagopolli.mastersworks.repositories.PagamentoRepository;
+import com.thiagopolli.mastersworks.repositories.PedidoRepository;
 import com.thiagopolli.mastersworks.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -42,6 +50,12 @@ public class MastersworksApplication implements CommandLineRunner {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(MastersworksApplication.class, args);
 	}
@@ -51,19 +65,21 @@ public class MastersworksApplication implements CommandLineRunner {
 		
 		Categoria cat1 = new Categoria(null, "Informatica");
 		Categoria cat2 = new Categoria(null, "Escritorio");
+		Categoria cat3 = new Categoria(null, "Eletronicos");
 		
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
 		Produto p3 = new Produto(null, "mouse", 80.00);
 		
-		cat1.getProdutos().addAll(Arrays.asList(p1,p2,p3));
+		cat1.getProdutos().addAll(Arrays.asList(p1));
 		cat2.getProdutos().addAll(Arrays.asList(p2));
+		cat3.getProdutos().addAll(Arrays.asList(p3));
 		
 		p1.getCategoras().addAll(Arrays.asList(cat1));
-		p2.getCategoras().addAll(Arrays.asList(cat1,cat2));
-		p3.getCategoras().addAll(Arrays.asList(cat1));
+		p2.getCategoras().addAll(Arrays.asList(cat2));
+		p3.getCategoras().addAll(Arrays.asList(cat3));
 		
-		categoriaRepository.saveAll(Arrays.asList( cat1,cat2));
+		categoriaRepository.saveAll(Arrays.asList( cat1,cat2,cat3));
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		
 		
@@ -95,6 +111,24 @@ public class MastersworksApplication implements CommandLineRunner {
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		
 		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:MM");
+		
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2019 20:15"), cli1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("20/08/2019 10:15"), cli1, e2);
+		
+		Pagamento pagto1 = new PagamentoComcartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		ped1.setPagamento(pagto1);
+		
+		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2019 00:00"), null);
+		ped2.setPagamento(pagto2);
+		
+		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+		
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
+		
 		
 		
 		
