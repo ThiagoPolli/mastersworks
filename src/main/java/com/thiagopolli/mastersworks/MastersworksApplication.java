@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.thiagopolli.mastersworks.domain.Categoria;
 import com.thiagopolli.mastersworks.domain.Cidade;
+import com.thiagopolli.mastersworks.domain.Cliente;
+import com.thiagopolli.mastersworks.domain.Endereco;
 import com.thiagopolli.mastersworks.domain.Estado;
 import com.thiagopolli.mastersworks.domain.Produto;
+import com.thiagopolli.mastersworks.domain.enums.Tipocliente;
 import com.thiagopolli.mastersworks.repositories.CategoriaRepository;
 import com.thiagopolli.mastersworks.repositories.CidadeRepository;
+import com.thiagopolli.mastersworks.repositories.ClienteRepository;
+import com.thiagopolli.mastersworks.repositories.EnderecoRepository;
 import com.thiagopolli.mastersworks.repositories.EstadoRepository;
 import com.thiagopolli.mastersworks.repositories.ProdutoRepository;
 
@@ -30,6 +35,12 @@ public class MastersworksApplication implements CommandLineRunner {
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(MastersworksApplication.class, args);
@@ -71,7 +82,19 @@ public class MastersworksApplication implements CommandLineRunner {
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
 		
+		Cliente cli1 = new Cliente(null, "Maria", "Maria@gmail", "36378912377", Tipocliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		
+		
+		
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "apt 203", "jardim", "38220834", cli1,c1 );
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "sala 800", "centro", "38777012", cli1,c2 );
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 		
 		
 		
