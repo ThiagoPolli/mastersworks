@@ -76,12 +76,12 @@ public class MastersworksApplication implements CommandLineRunner {
 		Produto p2 = new Produto(null, "Impressora", 800.00);
 		Produto p3 = new Produto(null, "mouse", 80.00);
 		
-		cat1.getProdutos().addAll(Arrays.asList(p1));
+		cat1.getProdutos().addAll(Arrays.asList(p1,p2,p3));
 		cat2.getProdutos().addAll(Arrays.asList(p2));
 		
 		
 		p1.getCategoras().addAll(Arrays.asList(cat1));
-		p2.getCategoras().addAll(Arrays.asList(cat2, cat1));
+		p2.getCategoras().addAll(Arrays.asList(cat1,cat2));
 		p3.getCategoras().addAll(Arrays.asList(cat1));
 		
 		categoriaRepository.saveAll(Arrays.asList( cat1,cat2));

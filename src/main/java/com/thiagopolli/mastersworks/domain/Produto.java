@@ -26,17 +26,16 @@ public class Produto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	private double preco;
+	private Double preco;
 	
 	
+
 	
-	//lista de mapeamento categoria 
-	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
-		joinColumns = @JoinColumn(name ="produto_id"  ),
-		inverseJoinColumns = @JoinColumn(name = "categoria_id")
-	)
+		joinColumns = {@JoinColumn(name ="produto_id"  )},
+		inverseJoinColumns = {@JoinColumn(name = "categoria_id")})
+	
 	private List<Categoria> categorias = new ArrayList<>();
 	
 	@JsonIgnore
@@ -89,7 +88,7 @@ public class Produto implements Serializable {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-
+	@JsonIgnore
 	public List<Categoria> getCategoras() {
 		return categorias;
 	}
