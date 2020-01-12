@@ -15,12 +15,10 @@ import com.thiagopolli.mastersworks.services.CategoriaServices;
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
-	
-	
+
 	@Autowired
 	private CategoriaServices service;
-	
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id){
 		
@@ -29,13 +27,11 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(obj);
 		
 	}
-	
+
 	@RequestMapping
-	public ResponseEntity<List<Categoria>> findAll(){
+	public ResponseEntity<List<Categoria>> findAll() {
 		List<Categoria> list = service.findall();
 		return ResponseEntity.ok().body(list);
 	}
-	
-	
 
 }
