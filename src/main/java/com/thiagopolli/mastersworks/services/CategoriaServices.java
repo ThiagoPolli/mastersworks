@@ -1,12 +1,15 @@
 package com.thiagopolli.mastersworks.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.thiagopolli.mastersworks.domain.Categoria;
 import com.thiagopolli.mastersworks.repositories.CategoriaRepository;
+import com.thiagopolli.mastersworks.services.exceptions.DataIntegrityException;
 import com.thiagopolli.mastersworks.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -32,6 +35,22 @@ public class CategoriaServices {
 	public Categoria update(Categoria obj) {
 		find(obj.getId());
 		return repo.save(obj);
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+		repo.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			
+			throw new DataIntegrityException("Não é possivel Excluir uma categoria com produtos");
+		}
+		
+	}
+	
+	public List<Categoria> findAll(){
+		return repo.findAll();
 	}
 
 }
