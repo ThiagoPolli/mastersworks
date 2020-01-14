@@ -58,9 +58,7 @@ public class ClienteDTO implements Serializable{
 			this.email = email;
 		}
 
-		public static long getSerialversionuid() {
-			return serialVersionUID;
-		}
+		
 	
 
 }
