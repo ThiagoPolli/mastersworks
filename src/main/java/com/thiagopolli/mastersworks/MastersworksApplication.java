@@ -110,16 +110,19 @@ public class MastersworksApplication implements CommandLineRunner {
 		Cliente cli1 = new Cliente(null, "Maria", "Maria@gmail", "36378912377", Tipocliente.PESSOAFISICA);
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		
+		Cliente cli2 = new Cliente(null, "Nestor" , "nestor@gmail.com", "0015515611", Tipocliente.PESSOAJURIDICA);
+		cli2.getTelefones().addAll(Arrays.asList("(43)221212"));
+		
 		
 		
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "apt 203", "jardim", "38220834", cli1,c1 );
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "sala 800", "centro", "38777012", cli1,c2 );
+		Endereco e3 = new Endereco(null, "Avenida Matos", "105", "sala 800", "centro", "38777012", cli2,c2 );
 		
+		clienteRepository.saveAll(Arrays.asList(cli1,cli2));
 		cli1.getEnderecos().addAll(Arrays.asList(e1,e2));
-		
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		
-		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e1));		
+		enderecoRepository.saveAll(Arrays.asList(e1,e2,e3));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:MM");
 		
