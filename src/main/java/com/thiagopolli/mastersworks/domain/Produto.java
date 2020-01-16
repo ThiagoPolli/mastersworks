@@ -30,7 +30,7 @@ public class Produto implements Serializable {
 	
 	
 
-	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
 		joinColumns = {@JoinColumn(name ="produto_id"  )},
@@ -88,13 +88,13 @@ public class Produto implements Serializable {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-	@JsonIgnore
-	public List<Categoria> getCategoras() {
+	//@JsonIgnore
+	public List<Categoria> getCategorias() {
 		return categorias;
 	}
 
-	public void setCategoras(List<Categoria> categoras) {
-		this.categorias = categoras;
+	public void setCategoras(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 	
 	public Set<ItemPedidos> getItens() {
