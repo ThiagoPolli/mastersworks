@@ -25,7 +25,7 @@ import com.thiagopolli.mastersworks.dto.ClienteNewDTO;
 import com.thiagopolli.mastersworks.repositories.ClienteRepository;
 import com.thiagopolli.mastersworks.repositories.EnderecoRepository;
 import com.thiagopolli.mastersworks.security.UserSS;
-import com.thiagopolli.mastersworks.services.exceptions.AuthorizationExeption;
+import com.thiagopolli.mastersworks.services.exceptions.AuthorizationException;
 import com.thiagopolli.mastersworks.services.exceptions.DataIntegrityException;
 import com.thiagopolli.mastersworks.services.exceptions.ObjectNotFoundException;
 
@@ -51,7 +51,7 @@ public class ClienteServices {
 		
 		UserSS user = UserService.authenticated();
 		if(user == null || !user.haRole(Perfil.ADMIN) && !id.equals(user.getId())) {
-			throw new AuthorizationExeption("Acesso negado");			
+			throw new AuthorizationException("Acesso negado");			
 		}
 		
 		

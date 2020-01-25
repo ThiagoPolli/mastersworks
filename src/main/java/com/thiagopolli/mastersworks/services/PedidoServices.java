@@ -18,7 +18,7 @@ import com.thiagopolli.mastersworks.repositories.ItemPedidoRepository;
 import com.thiagopolli.mastersworks.repositories.PagamentoRepository;
 import com.thiagopolli.mastersworks.repositories.PedidoRepository;
 import com.thiagopolli.mastersworks.security.UserSS;
-import com.thiagopolli.mastersworks.services.exceptions.AuthorizationExeption;
+import com.thiagopolli.mastersworks.services.exceptions.AuthorizationException;
 import com.thiagopolli.mastersworks.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -82,7 +82,7 @@ public class PedidoServices {
 	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		UserSS user = UserService.authenticated();
 		if (user == null) {
-			throw new AuthorizationExeption("Acesso negado");
+			throw new AuthorizationException("Acesso negado");
 		}
 		
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
