@@ -71,36 +71,39 @@ public class DBService {
 	public void intatiateTestDatabase() throws ParseException {
 		
 		
-		Categoria cat1 = new Categoria(null, "Informatica");
-		Categoria cat2 = new Categoria(null, "Escritorio");
-		Categoria cat3 = new Categoria(null, "Cama mesa Banho");
-		Categoria cat4 = new Categoria(null, "Eletronicos");
-		Categoria cat5 = new Categoria(null, "Jardinagem");
-		Categoria cat6 = new Categoria(null, "Decoração");
-		Categoria cat7 = new Categoria(null, "Perfumaria");
+		Categoria cat1 = new Categoria(null, "Feminino");
+		Categoria cat2 = new Categoria(null, "Masculino");
+		Categoria cat3 = new Categoria(null, "Infantil");
+		Categoria cat4 = new Categoria(null, "Teen");
+		Categoria cat5 = new Categoria(null, "Calçados");
+		Categoria cat6 = new Categoria(null, "Acessorios");
+		Categoria cat7 = new Categoria(null, "Beleza e Perfumes");
 		
 		
-		Produto p1 = new Produto(null, "Computador", 2000.00);
-		Produto p2 = new Produto(null, "Impressora", 800.00);
-		Produto p3 = new Produto(null, "mouse", 80.00);
-		Produto p4 = new Produto(null, "mesa de escritorio", 300.00);
-		Produto p5 = new Produto(null, "Toalha", 50.00);
-		Produto p6 = new Produto(null, "Colcha", 200.00);
-		Produto p7 = new Produto(null, "Tv true Colors", 1280.00);
-		Produto p8 = new Produto(null, "Roçadeira", 800.00);
-		Produto p9 = new Produto(null, "Abajour", 100.00);
-		Produto p10 = new Produto(null, "Pendente", 180.00);
-		Produto p11 = new Produto(null, "Shampoo", 90.00);
+		Produto p1 = new Produto(null, "vestido", 200.00);
+		Produto p2 = new Produto(null, "blusa", 80.00);
+		Produto p3 = new Produto(null, "bermuda", 80.00);
+		Produto p4 = new Produto(null, "camiseta", 60.00);
+		Produto p5 = new Produto(null, "Pijama infantil ", 50.00);
+		Produto p6 = new Produto(null, "conjunto infantil", 129.00);
+		Produto p7 = new Produto(null, "Calça Juvenil Pantacourt", 80.00);
+		Produto p8 = new Produto(null, "Saia Jeans Juvenil Barra Desfiada", 70.00);
+		Produto p9 = new Produto(null, "Tênis Feminino Casual ", 100.00);
+		Produto p10 = new Produto(null, "Sapatênis Masculino Casual", 180.00);
+		Produto p11 = new Produto(null, "Óculos de Sol Feminino", 90.00);
+		Produto p12 = new Produto(null, "Kit Colar Brinco Feminino", 15.00);
+		Produto p13 = new Produto(null, "Colônia Feminina", 90.00);
+		Produto p14 = new Produto(null, "Kit de Maquiagem Completo", 80.00);
 		
 		
 		
-		cat1.getProdutos().addAll(Arrays.asList(p1,p2,p3));
-		cat2.getProdutos().addAll(Arrays.asList(p2,p4));
+		cat1.getProdutos().addAll(Arrays.asList(p1,p2,p9,p11,p12,p13,p14));
+		cat2.getProdutos().addAll(Arrays.asList(p3,p4,p10));
 		cat3.getProdutos().addAll(Arrays.asList(p5,p6));
-		cat4.getProdutos().addAll(Arrays.asList(p1,p2,p3,p7));
-		cat5.getProdutos().addAll(Arrays.asList(p8));
-		cat6.getProdutos().addAll(Arrays.asList(p9,p10));
-		cat7.getProdutos().addAll(Arrays.asList(p11));
+		cat4.getProdutos().addAll(Arrays.asList(p7,p8));
+		cat5.getProdutos().addAll(Arrays.asList(p9,p10));
+		cat6.getProdutos().addAll(Arrays.asList(p11,p12));
+		cat7.getProdutos().addAll(Arrays.asList(p13,p14));
 	
 		p1.getCategorias().addAll(Arrays.asList(cat1, cat4));
 		p2.getCategorias().addAll(Arrays.asList(cat1, cat2, cat4));
@@ -116,7 +119,7 @@ public class DBService {
 
 		
 		categoriaRepository.saveAll(Arrays.asList( cat1,cat2,cat3,cat4,cat5,cat6,cat7));
-		produtoRepository.saveAll(Arrays.asList(p1, p2, p3,p4,p5,p6,p7,p8,p9,p10,p11));
+		produtoRepository.saveAll(Arrays.asList(p1, p2, p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14));
 		
 		
 
@@ -176,9 +179,9 @@ public class DBService {
 		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
 		
 		
-		ItemPedidos ip1 = new ItemPedidos(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedidos ip1 = new ItemPedidos(ped1, p1, 0.00, 1, 200.00);
 		ItemPedidos ip2 =new ItemPedidos(ped1, p3, 0.00, 2, 80.00);
-		ItemPedidos ip3 = new ItemPedidos(ped2, p2, 100.00, 1, 800.00);
+		ItemPedidos ip3 = new ItemPedidos(ped2, p2, 100.00, 1, 80.00);
 		
 		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
 		ped2.getItens().addAll(Arrays.asList(ip3));
