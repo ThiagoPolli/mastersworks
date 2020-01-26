@@ -1,0 +1,20 @@
+package com.thiagopolli.mastersworks.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.thiagopolli.mastersworks.domain.Estado;
+import com.thiagopolli.mastersworks.repositories.EstadoRepository;
+
+@Service
+public class EstadoService {
+	
+	@Autowired
+	private EstadoRepository repo;
+
+	public List<Estado> findAll(){
+		return repo.findAllByOrderByNome();
+	}
+}
